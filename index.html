@@ -2,14 +2,30 @@
 <html>
 <head>
     <title>Tornado WebSockets</title>
-    <script>
+    <script type="text/javascript">
         var ws;
  
         function onLoad() {
             ws = new WebSocket("ws://192.168.1.235:8888/websocket");
  
             ws.onmessage = function(e) {
-               alert(e.data);
+                var res = e.data.split(" ");
+                switch(parseInt(res[0])) {
+                    case 0: // Button A
+                        document.getElementById("ButtonAname").innerHTML = res[1];
+                        document.getElementById("ButtonAstate").innerHTML = res[2];
+                        break;
+                    case 1: // Button B
+                        document.getElementById("ButtonBname").innerHTML = res[1];
+                        document.getElementById("ButtonBstate").innerHTML = res[2];
+                        break;
+                    case 2: // Accelerometer
+                        document.getElementById("AccelXname").innerHTML = res[1];
+                        document.getElementById("AccelXvalue").innerHTML = res[2];
+                        document.getElementById("AccelYvalue").innerHTML = res[3];
+                        document.getElementById("AccelZvalue").innerHTML = res[4];
+                        break;
+                }
             };
         }
  
@@ -21,5 +37,20 @@
 <body onload="onLoad();">
     <strong>Message to Send:</strong>&nbsp;<input type="text" id="msg" maxlength="25" />
     &nbsp;<input type="button" onclick="sendMsg();" value="Send" />
+<p>Button A
+<div id="ButtonAname"></div>
+<div id="ButtonAstate"></div>
+<p>Button B
+<div id="ButtonBname"></div>
+<div id="ButtonBstate"></div>
+<p>Accel
+<div id="AccelXname"></div>
+<p>X
+<div id="AccelXvalue"></div>
+<p>Y
+<div id="AccelYvalue"></div>
+<p>Z
+<div id="AccelZvalue"></div>
 </body>
 </html>
+
