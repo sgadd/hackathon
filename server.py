@@ -150,7 +150,7 @@ class Bluetooth():
         return (btn_a, btn_b)
 
     def putLed(self, name, msg):
-        self.led_iface[name].WriteValue([ord(msg[0])], ())
+        self.led_iface[name].WriteValue(map(ord, msg), ())
         print "Sent", msg
 
     def __del__(self):
