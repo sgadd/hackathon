@@ -34,7 +34,8 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         self.write_message(message)
 
     def on_message(self, message):
-        self.bt.putLed(message)
+        for mb in my_microbits:
+            self.bt.putLed(mb, message)
         self.send_echo(message)
         pass
 
