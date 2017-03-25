@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tornado WebSockets</title>
+    <script type="text/javascript">
+        var ws;
+ 
+        function onLoad() {
+            <!-- ws = new WebSocket("ws://192.168.0.33:8888/websocket"); -->
+            ws = new WebSocket("ws://127.0.0.1:8888/websocket");
+            
+ 
+            ws.onmessage = function(e) {
+                var res = e.data.split(" ");
+                switch(parseInt(res[0])) {
+                    case 0: // Button A
+                        document.getElementById("ButtonAname").innerHTML = res[1];
+                        document.getElementById("ButtonAstate").innerHTML = res[2];
+                        break;
+                    case 1: // Button B
+                        document.getElementById("ButtonBname").innerHTML = res[1];
+                        document.getElementById("ButtonBstate").innerHTML = res[2];
+                        break;
+                    case 2: // Accelerometer
+                        document.getElementById("AccelXname").innerHTML = res[1];
+                        document.getElementById("AccelXvalue").innerHTML = res[2];
+                        document.getElementById("AccelYvalue").innerHTML = res[3];
+                        document.getElementById("AccelZvalue").innerHTML = res[4];
+                        break;
+                    case 3: // Uart
+                        document.getElementById("Uartname").innerHTML = res[1];
+                        document.getElementById("Uartvalue").innerHTML = res[2];
+                        switch(parseInt(res[2])){
+                           case 0:
+                              document.getElementById("UartImage").src = "./images/c0.jpg";
+                              break;
+                           case 1:
+                              document.getElementById("UartImage").src = "./images/c10.jpg";
+                              break;
+                           case 2:
+                              document.getElementById("UartImage").src = "./images/c25.jpg";
+                              break;
+                           case 3:
+                              document.getElementById("UartImage").src = "./images/c25.jpg";
+                              break;
+                           case 4:
+                              document.getElementById("UartImage").src = "./images/c50.jpg";
+                              break;
+                           case 5:
+                              document.getElementById("UartImage").src = "./images/c50.jpg";
+                              break;
+                           case 6:
+                              document.getElementById("UartImage").src = "./images/c75.jpg";
+                              break;
+                           case 7:
+                              document.getElementById("UartImage").src = "./images/c75.jpg";
+                              break;
+                           case 8:
+                              document.getElementById("UartImage").src = "./images/c100.jpg";
+                              break;
+                           case 9:
+                              document.getElementById("UartImage").src = "./images/c100.jpg";
+                              break;
+
+                        }
+                        break;
+
+                }
+            };
+        }
+ 
+        function sendMsg() {
+            ws.send(document.getElementById('msg').value);
+        }
+    </script>
+</head>
+<body onload="onLoad();">
+    <strong>Message to Send:</strong>&nbsp;<input type="text" id="msg" maxlength="25" />
+    &nbsp;<input type="button" onclick="sendMsg();" value="Send" />
+<p>
+<img id="UartImage" src="" alt="">
+<p>Uart
+<div id="Uartname"></div>
+<div id="Uartvalue"></div>
+p>Button A
+<div id="ButtonAname"></div>
+<div id="ButtonAstate"></div>
+<p>Button B
+<div id="ButtonBname"></div>
+<div id="ButtonBstate"></div>
+<p>Accel
+<div id="AccelXname"></div>
+<p>X
+<div id="AccelXvalue"></div>
+<p>Y
+<div id="AccelYvalue"></div>
+<p>Z
+<div id="AccelZvalue"></div>
+</body>
+</html>
+
